@@ -26,7 +26,8 @@ function animalName(){
         event.preventDefault();
 
         var animal = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "api_key=7J35IqOqnxdgS8ZFTzJaQurODtJJTYJG&q=&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=9hiva0MxBroQdI1A23eUS7o6xT2Inyty&limit=10";
+
 
         $.ajax({
             url: queryURL,
@@ -53,23 +54,23 @@ function animalName(){
                     animalImage.attr("src", results[i].images.fixed_height.url);
                     
                     //gives attribute for still 
-                    gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+                    animalImage.attr("data-still", results[i].images.fixed_height_still.url);
 
                     //gives attribute for animated
-                    gifImage.attr("data-animate", results[i].images.fixed_height.url);
+                    animalImage.attr("data-animate", results[i].images.fixed_height.url);
 
                     //sets the data state
-                    gifImage.attr("data-state", "still");
+                    animalImage.attr("data-state", "still");
 
                     //gives the gif a class
-                    gifImage.attr("class", "clickable");
+                    animalImage.attr("class", "clickable");
                     
                     //Appends both p and img to the div
                     gifDiv.append(p);
-                    gifDiv.append(gifImage);
+                    gifDiv.append(animalImage);
 
                     // Prependng the gifDiv to the index within the animalGifs div
-                    $("#animalGifs").prepend(gifDiv);
+                    $("#animalGifs").append(gifDiv);
                 // }
             }
         })
@@ -112,6 +113,7 @@ $("#addAnimal").on("click", function(event) {
 
   });
 
+$(document).on("click", animalName);
 
 
 //currently, some functionality is missing.
