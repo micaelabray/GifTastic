@@ -22,19 +22,21 @@ function renderButtons() {
 renderButtons();
 
 function animalName(){
-    $("#animalButtons").on("click", function (event){
+    $("button").on("click", function (event){
         event.preventDefault();
+
         var animal = $(this).attr("data-name");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=7J35IqOqnxdgS8ZFTzJaQurODtJJTYJG&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "api_key=7J35IqOqnxdgS8ZFTzJaQurODtJJTYJG&q=&limit=10";
 
         $.ajax({
-            url:queryURL,
+            url: queryURL,
             method: "GET"
         })
         .then(function(response){
             console.log(queryURL);
             console.log(response);
             var results = response.data;
+            console.log(results);
             $("#animalGifs").empty();
             for (var i=0; i < results.length; i++){
                 // if (results[i].rating !=="r"){
@@ -70,9 +72,9 @@ function animalName(){
                     $("#animalGifs").prepend(gifDiv);
                 // }
             }
-        });
+        })
     })
-}
+};
 
 $(document).on("click", ".clickable", function() {
 
@@ -96,10 +98,10 @@ $(document).on("click", ".clickable", function() {
 
 
 // creates a new button when the button is clicked
-$("#add-gif").on("click", function(event) {
+$("#addAnimal").on("click", function(event) {
     event.preventDefault();
     // Get input info
-    var newGif = $("#gif-input").val().trim();
+    var newGif = $("#animalInput").val().trim();
 
 
     // adds the new gif to the original array
@@ -116,7 +118,3 @@ $("#add-gif").on("click", function(event) {
 //the AJAX call, once completed, will pull the information and then insert the still image onto the page.
 //once displayed, the image will be clickable to begin the animated image.
 //should the image be clicked on again, the animated image will be switched out for the still image to pause the gif.
-
-//should the user want to see other images they will input the name of the animal into the text field.
-//after hitting 'Add Animal' button, the button will appear.
-//this button is clickable to pull the AJAX information and insert the corresponding gifs to the page.
