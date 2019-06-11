@@ -16,60 +16,62 @@ function renderButtons() {
           // Adding the button to the HTML
           $("#animalButtons").append(gifButton);
     }
-}
+};
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
 
 function animalName(){
-    
-    var animal = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=7J35IqOqnxdgS8ZFTzJaQurODtJJTYJG&limit=10";
+    $("#animalButtons").on("click", function (event){
+        event.preventDefault();
+        var animal = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=7J35IqOqnxdgS8ZFTzJaQurODtJJTYJG&limit=10";
 
-    $.ajax({
-        url:queryURL,
-        method: "GET"
-    })
-    .then(function(response){
-        console.log(queryURL);
-        console.log(response);
-        var results = response.data;
-        $("#animalGifs").empty();
-        for (var i=0; i < results.length; i++){
-            if (results[i].rating !=="r"){
+        $.ajax({
+            url:queryURL,
+            method: "GET"
+        })
+        .then(function(response){
+            console.log(queryURL);
+            console.log(response);
+            var results = response.data;
+            $("#animalGifs").empty();
+            for (var i=0; i < results.length; i++){
+                // if (results[i].rating !=="r"){
 
-                var gifDiv = $("<div>");
-                    gifDiv.addClass("clickable");
+                    var gifDiv = $("<div>");
+                        gifDiv.addClass("clickable");
 
-                var rating = results[i].rating;
+                    var rating = results[i].rating;
 
-                var p = $("<p>").text("Rating: " + rating);
-                
-                var animalImage = $("<img>");
-                
-                animalImage.attr("src", results[i].images.fixed_height.url);
-                
-                //gives attribute for still 
-                gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+                    var p = $("<p>").text("Rating: " + rating);
+                    
+                    var animalImage = $("<img>");
+                    
+                    animalImage.attr("src", results[i].images.fixed_height.url);
+                    
+                    //gives attribute for still 
+                    gifImage.attr("data-still", results[i].images.fixed_height_still.url);
 
-                //gives attribute for animated
-                gifImage.attr("data-animate", results[i].images.fixed_height.url);
+                    //gives attribute for animated
+                    gifImage.attr("data-animate", results[i].images.fixed_height.url);
 
-                //sets the data state
-                gifImage.attr("data-state", "still");
+                    //sets the data state
+                    gifImage.attr("data-state", "still");
 
-                //gives the gif a class
-                gifImage.attr("class", "clickable");
-                
-                //Appends both p and img to the div
-                gifDiv.append(p);
-                gifDiv.append(gifImage);
+                    //gives the gif a class
+                    gifImage.attr("class", "clickable");
+                    
+                    //Appends both p and img to the div
+                    gifDiv.append(p);
+                    gifDiv.append(gifImage);
 
-                // Prependng the gifDiv to the index within the animalGifs div
-                $("#animalGifs").prepend(gifDiv);
+                    // Prependng the gifDiv to the index within the animalGifs div
+                    $("#animalGifs").prepend(gifDiv);
+                // }
             }
-         }
-    });
+        });
+    })
 }
 
 $(document).on("click", ".clickable", function() {
