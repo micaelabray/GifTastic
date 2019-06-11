@@ -40,7 +40,6 @@ function animalName(){
             console.log(results);
             $("#animalGifs").empty();
             for (var i=0; i < results.length; i++){
-                // if (results[i].rating !=="r"){
 
                     var gifDiv = $("<div>");
                         gifDiv.addClass("clickable");
@@ -51,7 +50,7 @@ function animalName(){
                     
                     var animalImage = $("<img>");
                     
-                    animalImage.attr("src", results[i].images.fixed_height.url);
+                    animalImage.attr("src", results[i].images.fixed_height_still.url);
                     
                     //gives attribute for still 
                     animalImage.attr("data-still", results[i].images.fixed_height_still.url);
@@ -71,7 +70,6 @@ function animalName(){
 
                     // Prependng the gifDiv to the index within the animalGifs div
                     $("#animalGifs").append(gifDiv);
-                // }
             }
         })
     })
